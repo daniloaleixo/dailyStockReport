@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  alphaAdvantageApiKey: process.env.ALPHA_ADVANTAGE_API_KEY
 };
