@@ -23,7 +23,7 @@ interface IAlphaAdvantageSingleTimeSerieWithTime extends IAlphaAdvantageSingleTi
 })
 export class AppComponent {
   title = 'stockDayReport';
-  private stocks: string[] = ['ITSA4.SA'];
+  private stocks: string[] = ['ITSA4.SA', 'PETR4.SA'];
 
   private alphaResults: Array<IStockInfo> = [];
   sortedData: IStockInfo[];
@@ -70,7 +70,7 @@ export class AppComponent {
   private getnfoFromStocks() {
     forkJoin(this.stocks.map(stock => this.alpha.getStockTimeSeries(stock)))
       .subscribe((results: IAlphaAdvantageResponse[]) => {
-        this.alphaResults = results.map((result: IAlphaAdvantageResponse) => this.transformData(result))
+        this.alphaResults = results.map((result: IAlphaAdvantageResponse) => this.transformData(result));
         this.sortedData = this.alphaResults.slice();
       });
   }

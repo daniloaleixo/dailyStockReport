@@ -1,18 +1,26 @@
 <table matSort (matSortChange)="sortData($event)">
   <tr>
-    <th mat-sort-header="name">Dessert (100g)</th>
-    <th mat-sort-header="differencePercentage">Calories</th>
-    <th mat-sort-header="topPercentage">Fat (g)</th>
-    <th mat-sort-header="bottomPercentage">Carbs (g)</th>
-    <th mat-sort-header="currentPrice">Protein (g)</th>
+    <th mat-sort-header="name">Ativo</th>
+    <th mat-sort-header="differencePercentage">Oscilação</th>
+    <th mat-sort-header="topPercentage">Máximo</th>
+    <th mat-sort-header="bottomPercentage">Mínimo</th>
+    <th mat-sort-header="currentPrice">Preço</th>
   </tr>
 
   <tr *ngFor="let stock of sortedData">
     <td>{{stock.name}}</td>
-    <td>{{stock.differencePercentage}}</td>
-    <td>{{stock.topPercentage}}</td>
-    <td>{{stock.bottomPercentage}}</td>
-    <td>{{stock.currentPrice}}</td>
+    <td [ngStyle]="{ 'color': stock.differencePercentage > 0 ? 'green': 'red' }">
+      {{stock.differencePercentage | number:'2.2-2' }}%
+    </td>
+    <td [ngStyle]="{ 'color': stock.topPercentage > 0 ? 'green': 'red' }">
+      {{stock.topPercentage | number:'2.2-2' }}%
+    </td>
+    <td [ngStyle]="{ 'color': stock.bottomPercentage > 0 ? 'green': 'red' }">
+      {{stock.bottomPercentage | number:'2.2-2' }}%
+    </td>
+    <td>
+      R$ {{stock.currentPrice | number:'2.2-2' }}
+    </td>
   </tr>
 </table>
 
