@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
+import { HttpCommunicationService } from './services/http-communication.service';
 
 
 // Mandatory for system, like nav bar, etc
@@ -22,6 +23,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+  ],
+  providers: [
+    HttpCommunicationService
   ]
 })
 export class CoreModule { }
