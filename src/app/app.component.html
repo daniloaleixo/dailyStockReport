@@ -53,3 +53,9 @@
 </div> -->
 
 <router-outlet></router-outlet>
+<button (click)="this.addStockForm = true">Add Stock</button>
+<div *ngIf="addStockForm">
+  <button (click)="this.addStockForm = false">Fechar</button>
+  <input [(ngModel)]="stockToAdd">
+  <button (click)="addStock()">Adicionar</button>
+</div>

@@ -3,6 +3,7 @@ import { Sort } from '@angular/material';
 import { forkJoin } from 'rxjs';
 import { IAlphaAdvantageResponse, IAlphaAdvantageSingleTimeSerie } from './shared/models/alpha-advantage.model';
 import { AlphaAdvantageService } from './shared/services/alpha-advantage.service';
+import { StockRetrievalService } from './shared/services/stock-retrieval.service';
 
 interface IStockInfo {
   name: string;
@@ -31,21 +32,46 @@ export class AppComponent {
 
 
 
-  constructor(private alpha: AlphaAdvantageService) {
-    // this.getnfoFromStocks();
-    this.alphaResults = [
-      {
-        name: "PETR4",
-        differencePercentage: 0.5,
-        topPercentage: 0.5,
-        bottomPercentage: 0.5,
-        currentPrice: 50.02,
-      }
-    ];
+  public addStockForm: boolean = false;
+  public stockToAdd = "";
+
+
+  constructor(
+    private alpha: AlphaAdvantageService,
+    private stockService: StockRetrievalService
+  ) {
+    // this.stocks = stockService.retrieveAllStocksFromUser();
+    this.getnfoFromStocks();
     this.sortedData = this.alphaResults.slice();
   }
 
-  sortData(sort: Sort) {
+  public addStock() {
+    console.log(this.stocks);
+    this.alpha.getStockTimeSeries(this.stockToAdd)
+      .subscribe((result: IAlphaAdvantageResponse) => {
+        console.log(result);
+        if (result["Error Message"])
+          alert("Não consegui encontrar esse stock");
+        else {
+          this.stockService.addStock(this.stockToAdd);
+          this.stocks.push(this.stockToAdd);
+          const alphaResults = this.transformData(result);
+          console.log(alphaResults);
+
+          this.sortedData.push(alphaResults);
+          console.log(this.sortedData);
+
+
+          this.addStockForm = false;
+          this.stockToAdd = "";
+        }
+      },
+        (error) => {
+          alert("Não consegui encontrar esse stock");
+        });
+  }
+
+  public sortData(sort: Sort) {
     const data = this.alphaResults.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
@@ -64,19 +90,6 @@ export class AppComponent {
       }
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   private getnfoFromStocks() {
     forkJoin(this.stocks.map(stock => this.alpha.getStockTimeSeries(stock)))
