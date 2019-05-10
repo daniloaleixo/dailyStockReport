@@ -1,5 +1,5 @@
-<table matSort (matSortChange)="sortData($event)">
-  <tr>
+<table class="table" matSort (matSortChange)="sortData($event)">
+  <tr class="table__header">
     <th mat-sort-header="name">Ativo</th>
     <th mat-sort-header="differencePercentage">Oscilação</th>
     <th mat-sort-header="topPercentage">Máximo</th>
@@ -7,7 +7,7 @@
     <th mat-sort-header="currentPrice">Preço</th>
   </tr>
 
-  <tr *ngFor="let stock of sortedData">
+  <tr class="table__row" *ngFor="let stock of sortedData">
     <td>{{stock.name}}</td>
     <td [ngStyle]="{ 'color': stock.differencePercentage > 0 ? 'green': 'red' }">
       {{stock.differencePercentage | number:'2.2-2' }}%
@@ -23,5 +23,33 @@
     </td>
   </tr>
 </table>
+
+<!-- <div>
+  <button class="add-button" mat-button color="primary" (click)="addStockMode()">+ Adicionar ativo</button>
+</div> -->
+
+<!-- <div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Self aware panel
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <input matInput placeholder="First name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Age">
+      </mat-form-field>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div> -->
 
 <router-outlet></router-outlet>

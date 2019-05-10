@@ -11,3 +11,20 @@ tr {
     }
   }
 }
+
+.add-button {
+  float: right;
+  margin-right: 30px;
+}
+
+
+.table {
+  &__header {
+    background-color: blue;
+    color: white;
+  }
+
+  &__row {
+    background-color: lightblue;
+  }
+}

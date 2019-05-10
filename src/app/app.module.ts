@@ -5,7 +5,8 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { MatSortModule } from '@angular/material';
+import { MatSortModule, MatButtonModule, MatExpansionModule, MatFormFieldModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -14,7 +15,10 @@ import { MatSortModule } from '@angular/material';
   imports: [
     CoreModule,
     AppRoutingModule,
-    MatSortModule
+    MatSortModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

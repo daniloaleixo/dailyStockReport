@@ -22,15 +22,26 @@ interface IAlphaAdvantageSingleTimeSerieWithTime extends IAlphaAdvantageSingleTi
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'stockDayReport';
   private stocks: string[] = ['ITSA4.SA', 'PETR4.SA'];
-
   private alphaResults: Array<IStockInfo> = [];
-  sortedData: IStockInfo[];
+
+  public sortedData: IStockInfo[];
+  // public addMode = false;
+  public panelOpenState = true;
+
 
 
   constructor(private alpha: AlphaAdvantageService) {
-    this.getnfoFromStocks();
+    // this.getnfoFromStocks();
+    this.alphaResults = [
+      {
+        name: "PETR4",
+        differencePercentage: 0.5,
+        topPercentage: 0.5,
+        bottomPercentage: 0.5,
+        currentPrice: 50.02,
+      }
+    ];
     this.sortedData = this.alphaResults.slice();
   }
 
