@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlphaAdvantageService } from './services/alpha-advantage.service';
+import { StockRetrievalService } from './services/stock-retrieval.service';
 
 @NgModule({
   declarations: [],
@@ -8,7 +9,8 @@ import { AlphaAdvantageService } from './services/alpha-advantage.service';
     CommonModule
   ],
   providers: [
-    AlphaAdvantageService
+    AlphaAdvantageService,
+    StockRetrievalService
   ]
 })
 export class SharedModule { }

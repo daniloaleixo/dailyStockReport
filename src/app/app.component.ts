@@ -3,6 +3,7 @@ import { Sort } from '@angular/material';
 import { forkJoin } from 'rxjs';
 import { IAlphaAdvantageResponse, IAlphaAdvantageSingleTimeSerie } from './shared/models/alpha-advantage.model';
 import { AlphaAdvantageService } from './shared/services/alpha-advantage.service';
+import { StockRetrievalService } from './shared/services/stock-retrieval.service';
 
 interface IStockInfo {
   name: string;
@@ -29,12 +30,16 @@ export class AppComponent {
   sortedData: IStockInfo[];
 
 
-  constructor(private alpha: AlphaAdvantageService) {
+  constructor(
+    private alpha: AlphaAdvantageService,
+    private stockService: StockRetrievalService
+  ) {
+    // this.stocks = stockService.retrieveAllStocksFromUser();
     this.getnfoFromStocks();
     this.sortedData = this.alphaResults.slice();
   }
 
-  sortData(sort: Sort) {
+  public sortData(sort: Sort) {
     const data = this.alphaResults.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
@@ -53,19 +58,6 @@ export class AppComponent {
       }
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   private getnfoFromStocks() {
     forkJoin(this.stocks.map(stock => this.alpha.getStockTimeSeries(stock)))
