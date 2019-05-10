@@ -30,6 +30,10 @@ export class AppComponent {
   sortedData: IStockInfo[];
 
 
+  public addStockForm: boolean = false;
+  public stockToAdd = "";
+
+
   constructor(
     private alpha: AlphaAdvantageService,
     private stockService: StockRetrievalService
@@ -37,6 +41,32 @@ export class AppComponent {
     // this.stocks = stockService.retrieveAllStocksFromUser();
     this.getnfoFromStocks();
     this.sortedData = this.alphaResults.slice();
+  }
+
+  public addStock() {
+    console.log(this.stocks);
+    this.alpha.getStockTimeSeries(this.stockToAdd)
+      .subscribe((result: IAlphaAdvantageResponse) => {
+        console.log(result);
+        if (result["Error Message"])
+          alert("Não consegui encontrar esse stock");
+        else {
+          this.stockService.addStock(this.stockToAdd);
+          this.stocks.push(this.stockToAdd);
+          const alphaResults = this.transformData(result);
+          console.log(alphaResults);
+
+          this.sortedData.push(alphaResults);
+          console.log(this.sortedData);
+          
+
+          this.addStockForm = false;
+          this.stockToAdd = "";
+        }
+      },
+        (error) => {
+          alert("Não consegui encontrar esse stock");
+        });
   }
 
   public sortData(sort: Sort) {

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,12 +18,14 @@ import { HttpCommunicationService } from './services/http-communication.service'
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule
   ],
   exports: [
     // shared modules
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [
     HttpCommunicationService
